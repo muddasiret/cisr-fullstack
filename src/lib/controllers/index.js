@@ -56,3 +56,16 @@ exports.editNews = (req, res) => {
       res.json(updatedNews);
     });
 };
+
+exports.deleteNews = (req, res) => {
+  const id = req.body.id;
+  News.findByPk(id)
+    .then((news) => {
+      return news.destroy();
+    })
+    .then((updatedNews) => {
+      News.findAll().then((news) => {
+        res.json(news);
+      });
+    });
+};
