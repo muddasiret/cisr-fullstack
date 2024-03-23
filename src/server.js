@@ -4,8 +4,9 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 require("dotenv").config();
 const allRoutes = require("./lib/routes");
+const sequelize = require("./lib/models");
 
-const { PORT = 3001 } = process.env;
+const { PORT = 3000 } = process.env;
 
 const app = express();
 
@@ -24,6 +25,14 @@ app.get("*", (_req, res) => {
   res.sendFile(path.join(__dirname, "app/index.html"));
 });
 
-app.listen(PORT, () => {
-  console.log(`Server listening at http://localhost:${PORT}`);
-});
+// Start server
+sequelize
+  .sync()
+  .then((result) => {
+    app.listen(PORT, () => {
+      console.log(`Server listening at http://localhost:${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.log(err);
+  });

@@ -14,6 +14,10 @@ const News = sequelize.define("news", {
     type: Sequelize.STRING,
     allowNull: true,
   },
+  section: {
+    type: Sequelize.STRING,
+    allowNull: true,
+  },
   youtube: {
     type: Sequelize.STRING,
     allowNull: true,
@@ -27,6 +31,10 @@ const News = sequelize.define("news", {
     allowNull: true,
   },
   pdf_link: {
+    type: Sequelize.STRING,
+    allowNull: true,
+  },
+  image: {
     type: Sequelize.STRING,
     allowNull: true,
   },

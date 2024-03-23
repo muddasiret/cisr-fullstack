@@ -6,7 +6,7 @@ const connectionObject = {
 };
 
 const sequelize = new Sequelize(
-  process.env.POSTGRES_DATABASE_USERNAME,
+  process.env.POSTGRES_DATABASE_NAME,
   process.env.POSTGRES_DATABASE_USERNAME,
   process.env.POSTGRES_DATABASE_PASSWORD,
   connectionObject

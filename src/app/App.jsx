@@ -1,34 +1,31 @@
-import { useEffect, useState } from "react";
-import axiosInstance from "./utils/axiosInterceptor";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { AppBar, Toolbar, Typography } from "@mui/material";
+import "@fontsource/roboto/300.css";
+import "@fontsource/roboto/400.css";
+import "@fontsource/roboto/500.css";
+import "@fontsource/roboto/700.css";
+import News from "./pages/News";
+import Sidebar from "./components/Sidebar";
 
 function App() {
-  const [news, setNews] = useState(null);
-  useEffect(() => {
-    axiosInstance
-      .get("/api/news")
-      .then((response) => {
-        console.log(response.data);
-        setNews(response.data);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  }, []);
-
   return (
-    <>
-      <h1>CISR backend</h1>
-      <h3>All news</h3>
-      {news ? (
-        news.length !== 0 ? (
-          <div>News list</div>
-        ) : (
-          "No news"
-        )
-      ) : (
-        "Loading news"
-      )}
-    </>
+    <Router>
+      <AppBar position="static">
+        <Toolbar>
+          <Typography variant="h6">CISR ADMIN</Typography>
+        </Toolbar>
+      </AppBar>
+      <div className="flex">
+        <div className="min-w-[200px]">
+          <Sidebar />
+        </div>
+        <Switch>
+          <Route exact path="/" component={News} />
+          <Route path="/news" component={News} />
+          <Route component={"NotFound"} />
+        </Switch>
+      </div>
+    </Router>
   );
 }
 

@@ -14,6 +14,7 @@ exports.postNews = (req, res) => {
   const pdf_text = req.body.pdf_text;
   const pdf_link = req.body.pdf_link;
   const image = req.body.image;
+  const section = req.body.section;
   News.create({
     title,
     subtitle,
@@ -22,6 +23,7 @@ exports.postNews = (req, res) => {
     pdf_text,
     pdf_link,
     image,
+    section,
   }).then((addednews) => {
     res.json(addednews);
   });
