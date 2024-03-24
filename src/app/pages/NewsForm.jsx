@@ -22,6 +22,7 @@ const NewsForm = ({
   newsLength = 0,
 }) => {
   const [editedValues, setEditedValues] = useState(defaultValues);
+  const [imageFile, setImageFile] = useState(null);
 
   const [form] = Form.useForm();
 
@@ -97,24 +98,12 @@ const NewsForm = ({
               valuePropName="fileList"
               getValueFromEvent={normFile}
             >
-              <Upload action="/upload.do" listType="picture-card">
-                <button
-                  style={{
-                    border: 0,
-                    background: "none",
-                  }}
-                  type="button"
-                >
-                  <PlusOutlined />
-                  <div
-                    style={{
-                      marginTop: 8,
-                    }}
-                  >
-                    Upload
-                  </div>
-                </button>
-              </Upload>
+              <FileUpload
+                name="news-image"
+                length={newsLength}
+                imageFile={imageFile}
+                setImageFile={setImageFile}
+              />
             </Form.Item>
             <Form.Item label="Pdf Label" name="pdf_text">
               <Input />

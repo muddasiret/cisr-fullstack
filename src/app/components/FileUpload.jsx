@@ -3,12 +3,19 @@ import { UploadOutlined } from "@ant-design/icons";
 import { Button, message, Upload } from "antd";
 import useFileUpload from "../hooks/useFileUpload";
 
-const FileUpload = ({ prefix = "news", onChange = () => {} }) => {
+const FileUpload = ({
+  prefix = "news",
+  onChange = () => {},
+  imageFile,
+  setImageFile,
+}) => {
   const [isUploading, setUploading] = useState(false);
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState();
   const [uploadImageUrl, setUploadImageUrl] = useState();
+  const [file, setFile] = useState(null);
 
+  console.log(file, imageFile);
   const onSuccess = (fileLink) => {
     console.log(fileLink);
   };
@@ -23,10 +30,6 @@ const FileUpload = ({ prefix = "news", onChange = () => {} }) => {
     onSuccess,
     prefix
   );
-
-  console.log({ uploading, uploadProgress });
-
-  const [file, setFile] = useState(null);
 
   // useEffect(() => {
   //   uploadFile(file);
@@ -44,6 +47,7 @@ const FileUpload = ({ prefix = "news", onChange = () => {} }) => {
     );
 
     setFile(info.file);
+    setImageFile(info.file);
 
     getBase64(info.file, (url) => {
       console.log(info.file.name.split("."), info.file, url);
@@ -72,6 +76,7 @@ const FileUpload = ({ prefix = "news", onChange = () => {} }) => {
     beforeUpload: (file) => {
       console.log(file);
       setFile(file);
+      setImageFile(file);
       return false;
     },
     file,
