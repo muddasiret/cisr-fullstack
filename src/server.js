@@ -5,6 +5,7 @@ const cors = require("cors");
 require("dotenv").config();
 const allRoutes = require("./lib/routes");
 const sequelize = require("./lib/models");
+const s3Router = require("./lib/routes/s3Router");
 
 const { PORT = 3000 } = process.env;
 
@@ -16,6 +17,9 @@ app.use(cors());
 
 // Serve API requests from the router
 app.use("/api", allRoutes);
+
+// S3 upload
+app.use("/s3", s3Router);
 
 // Serve app production bundle (Frontend/REACT)
 app.use(express.static("dist/app"));

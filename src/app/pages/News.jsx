@@ -33,7 +33,7 @@ const News = () => {
     axiosInstance
       .post("/api/news-delete", isDeleteModalOpen)
       .then((response) => {
-        setNews(response.data);
+        setNews(response.data.allNews);
         setIsDeleteModalOpen(false);
       })
       .catch((error) => {
@@ -45,7 +45,8 @@ const News = () => {
     axiosInstance
       .get("/api/news")
       .then((response) => {
-        setNews(response.data);
+        setNews(response.data.allNews);
+        setNews(response.data.allNews);
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -92,16 +93,24 @@ const News = () => {
           <div className=" max-h-[70vh] overflow-y-auto">
             <NewsForm
               defaultValues={formValues}
-              fetchNews={fetchNews}
+              setNews={setNews}
               handleCancel={handleCancel}
               setIsUpdating={setIsUpdating}
               isUpdating={isUpdating}
+              newsLength={news.length}
             />
           </div>
         </Modal>
       )}
       <div>
-        <Title level={3}>News</Title>
+        <div className="flex items-center justify-between mb-5">
+          <Title className="m-0" level={3}>
+            News
+          </Title>
+          <Button onClick={() => showModal({})} type="primary">
+            Add News
+          </Button>
+        </div>
         <List>
           {news?.map((item) => {
             let subtitleFormatted =

@@ -1,8 +1,8 @@
 const News = require("../models/news");
 
 exports.getNews = (req, res) => {
-  News.findAll().then((news) => {
-    res.json(news);
+  News.findAll().then((allNews) => {
+    res.json({ allNews });
   });
 };
 
@@ -24,8 +24,10 @@ exports.postNews = (req, res) => {
     pdf_link,
     image,
     section,
-  }).then((addednews) => {
-    res.json(addednews);
+  }).then((updatedNews) => {
+    News.findAll().then((allNews) => {
+      res.json({ allNews, updatedNews });
+    });
   });
 };
 
@@ -49,11 +51,13 @@ exports.editNews = (req, res) => {
       news.pdf_link = pdf_link;
       news.image = image;
       news.section = section;
+      console.log(news);
       return news.save();
     })
     .then((updatedNews) => {
-      console.log("updatedNews", updatedNews);
-      res.json(updatedNews);
+      News.findAll().then((allNews) => {
+        res.json({ allNews, updatedNews });
+      });
     });
 };
 
@@ -65,7 +69,7 @@ exports.deleteNews = (req, res) => {
     })
     .then((updatedNews) => {
       News.findAll().then((news) => {
-        res.json(news);
+        res.json({ allNews, updatedNews });
       });
     });
 };

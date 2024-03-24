@@ -2,21 +2,24 @@ import React, { useState } from "react";
 import { PlusOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Upload } from "antd";
 import axiosInstance from "../utils/axiosInterceptor";
+import FileUpload from "../components/FileUpload";
 const { TextArea } = Input;
 
 const normFile = (e) => {
   if (Array.isArray(e)) {
     return e;
   }
+  console.log(e);
   return e?.fileList;
 };
 
 const NewsForm = ({
   defaultValues = {},
-  fetchNews,
+  setNews,
   handleCancel,
   setIsUpdating,
   isUpdating,
+  newsLength = 0,
 }) => {
   const [editedValues, setEditedValues] = useState(defaultValues);
 
@@ -24,13 +27,20 @@ const NewsForm = ({
 
   async function submitForm() {
     setIsUpdating(true);
-    const res = await axiosInstance.put("/api/news-update", {
-      ...defaultValues,
-      ...editedValues,
-    });
+    let res;
+    if (Object.keys(defaultValues).length !== 0) {
+      res = await axiosInstance.put("/api/news-update", {
+        ...defaultValues,
+        ...editedValues,
+      });
+    } else {
+      res = await axiosInstance.post("/api/news-update", {
+        ...defaultValues,
+        ...editedValues,
+      });
+    }
     if (res?.data) {
-      console.log(res);
-      fetchNews();
+      setNews(response.data.allNews);
       handleCancel();
     }
   }
@@ -115,24 +125,7 @@ const NewsForm = ({
               valuePropName="fileList"
               getValueFromEvent={normFile}
             >
-              <Upload action="/upload.do" listType="picture-card">
-                <button
-                  style={{
-                    border: 0,
-                    background: "none",
-                  }}
-                  type="button"
-                >
-                  <PlusOutlined />
-                  <div
-                    style={{
-                      marginTop: 8,
-                    }}
-                  >
-                    Upload
-                  </div>
-                </button>
-              </Upload>
+              <FileUpload name="news-pdf" length={newsLength} />
             </Form.Item>
           </div>
           <div className="sticky bottom-2 right-0 w-full flex justify-end">
