@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { Suspense, lazy, useEffect, useState } from "react";
 import axiosInstance from "../utils/axiosInterceptor";
 import { Avatar, Button, List, Modal, Typography } from "antd";
-import NewsForm from "./NewsForm";
 const { Title } = Typography;
+
+const NewsForm = lazy(() => import("./NewsForm"));
 
 const News = () => {
   const [news, setNews] = useState(null);
@@ -90,14 +91,16 @@ const News = () => {
           }}
         >
           <div className=" max-h-[70vh] overflow-y-auto">
-            <NewsForm
-              defaultValues={formValues}
-              setNews={setNews}
-              handleCancel={handleCancel}
-              setIsUpdating={setIsUpdating}
-              isUpdating={isUpdating}
-              newsLength={news.length}
-            />
+            <Suspense fallback={<div>Loading...</div>}>
+              <NewsForm
+                defaultValues={formValues}
+                setNews={setNews}
+                handleCancel={handleCancel}
+                setIsUpdating={setIsUpdating}
+                isUpdating={isUpdating}
+                newsLength={news.length}
+              />
+            </Suspense>
           </div>
         </Modal>
       )}
