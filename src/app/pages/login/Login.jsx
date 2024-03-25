@@ -2,6 +2,7 @@
 import { Button, Form, Input, Typography } from "antd";
 import React from "react";
 import { useHistory } from "react-router-dom";
+import cisrLogo from "../assets/cisr_logo.png";
 const { Title } = Typography;
 
 const Login = ({ setIsLoggedIn }) => {
@@ -27,7 +28,7 @@ const Login = ({ setIsLoggedIn }) => {
         className="p-2 flex mb-6 flex-col justify-start items-start bg-blue-950"
         // style={{ borderBottom: "0.5px solid grey" }}
       >
-        <img src="/cisr_logo.png" style={{ height: 40 }} />
+        <img src={cisrLogo} style={{ height: 40 }} />
         <div className=" italic text-white mt-3">Admin dashboard</div>
       </div>
       <div className="m-4">

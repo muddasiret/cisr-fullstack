@@ -3,6 +3,7 @@ import { Layout, Menu } from "antd";
 import { routes } from "../constants";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import cisrLogo from "../assets/cisr_logo.png";
 
 const { Content, Footer, Sider } = Layout;
 const items = routes.map((path, index) => ({
@@ -29,7 +30,7 @@ const AppLayout = ({ children }) => {
           className="p-2 mt-2 ml-[-20px] flex flex-col justify-center items-center"
           // style={{ borderBottom: "0.5px solid grey" }}
         >
-          <img src="/cisr_logo.png" style={{ height: 40 }} />
+          <img src={cisrLogo} style={{ height: 40 }} />
           <div className=" italic text-white mt-3">Admin dashboard</div>
         </div>
         <Menu
