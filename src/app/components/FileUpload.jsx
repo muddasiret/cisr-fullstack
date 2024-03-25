@@ -5,19 +5,20 @@ import useFileUpload from "../hooks/useFileUpload";
 
 const FileUpload = ({
   prefix = "news",
-  onChange = () => {},
-  imageFile,
+  name,
   setImageFile,
+  itemId,
+  afterUpload = () => {},
+  fileUrl = null,
+  accept = "image/png, image/jpeg, image/jpg, image/webp",
 }) => {
   const [isUploading, setUploading] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [imageUrl, setImageUrl] = useState();
-  const [uploadImageUrl, setUploadImageUrl] = useState();
+  const [imageUrl, setImageUrl] = useState(fileUrl);
   const [file, setFile] = useState(null);
 
-  console.log(file, imageFile);
   const onSuccess = (fileLink) => {
-    console.log(fileLink);
+    afterUpload(name, fileLink);
   };
 
   const getBase64 = (img, callback) => {
@@ -28,7 +29,8 @@ const FileUpload = ({
 
   const { uploadFile, uploadProgress, uploading } = useFileUpload(
     onSuccess,
-    prefix
+    prefix,
+    itemId
   );
 
   // useEffect(() => {
@@ -38,19 +40,10 @@ const FileUpload = ({
   // }, [file]);
 
   const handleChange = (info) => {
-    console.log(info.file);
-    const fileNameArray = info.file.name.split(".");
-    console.log(
-      fileNameArray,
-      fileNameArray.slice(0, -1).join(""),
-      fileNameArray[fileNameArray.length - 1]
-    );
-
     setFile(info.file);
     setImageFile(info.file);
 
     getBase64(info.file, (url) => {
-      console.log(info.file.name.split("."), info.file, url);
       setLoading(false);
       setImageUrl(url);
     });
@@ -61,12 +54,13 @@ const FileUpload = ({
     if (info.file.status === "done") {
       // Get this url from response in real world.
     }
+    handleUpload();
   };
 
   const handleUpload = () => {
     setUploading(true);
     // You can use any AJAX library you like
-    uploadFile(file);
+    uploadFile(file, itemId, name);
   };
 
   const props = {
@@ -74,7 +68,6 @@ const FileUpload = ({
       setFile(null);
     },
     beforeUpload: (file) => {
-      console.log(file);
       setFile(file);
       setImageFile(file);
       return false;
@@ -89,6 +82,7 @@ const FileUpload = ({
         maxCount={1}
         onChange={handleChange}
         className="upload-file"
+        accept={accept}
       >
         {imageUrl && (
           <img
@@ -96,26 +90,14 @@ const FileUpload = ({
             alt="avatar"
             style={{
               width: "100%",
+              display: name === "image" ? "unset" : "none",
             }}
           />
         )}
-        <Button icon={<UploadOutlined />}>Select File</Button>
+        <Button icon={<UploadOutlined />}>
+          {imageUrl ? "Change" : "Select"} File
+        </Button>
       </Upload>
-      <Button
-        type="primary"
-        onClick={handleUpload}
-        disabled={!file}
-        loading={uploading}
-        style={{
-          marginTop: 16,
-        }}
-      >
-        {uploading
-          ? "Uploading"
-          : uploadImageUrl
-          ? "Change Image"
-          : "Start Upload"}
-      </Button>
     </>
   );
 };

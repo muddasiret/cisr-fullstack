@@ -1,18 +1,23 @@
+import React, { Suspense, lazy } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import News from "./pages/News";
 import AppLayout from "./components/AppLayout";
-import Playground from "./pages/Playground";
+
+const News = lazy(() => import("./pages/News"));
+const Playground = lazy(() => import("./pages/Playground"));
+const NotFound = () => <div>Not Found</div>; // Define a NotFound component
 
 function App() {
   return (
     <Router>
       <AppLayout>
-        <Switch>
-          <Route exact path="/" component={News} />
-          <Route path="/news" component={News} />
-          <Route path="/play" component={Playground} />
-          <Route component={"NotFound"} />
-        </Switch>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Switch>
+            <Route exact path="/" component={News} />
+            <Route path="/news" component={News} />
+            <Route path="/play" component={Playground} />
+            <Route component={NotFound} />
+          </Switch>
+        </Suspense>
       </AppLayout>
     </Router>
   );

@@ -9,7 +9,6 @@ const normFile = (e) => {
   if (Array.isArray(e)) {
     return e;
   }
-  console.log(e);
   return e?.fileList;
 };
 
@@ -23,6 +22,9 @@ const NewsForm = ({
 }) => {
   const [editedValues, setEditedValues] = useState(defaultValues);
   const [imageFile, setImageFile] = useState(null);
+  const [itemId, setItemId] = useState(
+    defaultValues.id ? defaultValues.id : newsLength + 1
+  );
 
   const [form] = Form.useForm();
 
@@ -41,10 +43,16 @@ const NewsForm = ({
       });
     }
     if (res?.data) {
-      setNews(response.data.allNews);
+      setNews(res.data.allNews);
       handleCancel();
     }
   }
+
+  const afterFileUpload = (type = "image", url) => {
+    setEditedValues({ ...editedValues, [type]: url });
+    form.setFieldValue(type, url);
+  };
+
   return (
     <>
       <Form
@@ -97,12 +105,16 @@ const NewsForm = ({
               label="Image"
               valuePropName="fileList"
               getValueFromEvent={normFile}
+              name={"image"}
             >
               <FileUpload
-                name="news-image"
+                name="image"
+                prefix="news"
                 length={newsLength}
-                imageFile={imageFile}
                 setImageFile={setImageFile}
+                itemId={itemId}
+                afterUpload={afterFileUpload}
+                fileUrl={editedValues.image}
               />
             </Form.Item>
             <Form.Item label="Pdf Label" name="pdf_text">
@@ -113,8 +125,18 @@ const NewsForm = ({
               label="Pdf"
               valuePropName="fileList"
               getValueFromEvent={normFile}
+              name={"pdf_link"}
             >
-              <FileUpload name="news-pdf" length={newsLength} />
+              <FileUpload
+                name="pdf"
+                prefix="news"
+                length={newsLength}
+                setImageFile={setImageFile}
+                itemId={itemId}
+                afterUpload={afterFileUpload}
+                fileUrl={editedValues.pdf_link}
+                accept=".pdf"
+              />
             </Form.Item>
           </div>
           <div className="sticky bottom-2 right-0 w-full flex justify-end">

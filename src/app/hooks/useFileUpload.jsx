@@ -1,11 +1,11 @@
 import { useCallback, useState } from "react";
 import { getSignedUrl, uploadFileToSignedUrl } from "../utils/fileUpload";
 
-function getKeyAndContentType(file, prefix = "documents") {
-  const [fileName, extension] = file.name.split(".");
-  console.log(fileName, extension);
+function getKeyAndContentType(file, prefix = "documents", id, name) {
+  const fileNameArray = file.name.split(".");
+  const extension = fileNameArray[fileNameArray.length - 1];
   // to generate unique key everytime
-  let key = prefix + `/${fileName}-${new Date().valueOf()}.${extension}`;
+  let key = prefix + `-${name}-${id}.${extension}`;
 
   let content_type = file.type;
 
@@ -16,9 +16,14 @@ export default function useFileUpload(onSuccess, prefix) {
   const [uploading, setUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(null);
 
-  const uploadFile = useCallback((file) => {
+  const uploadFile = useCallback((file, id, name) => {
     if (file) {
-      const { key, content_type } = getKeyAndContentType(file, prefix);
+      const { key, content_type } = getKeyAndContentType(
+        file,
+        prefix,
+        id,
+        name
+      );
 
       getSignedUrl({ key, content_type }).then((response) => {
         const signedUrl = response.data?.signedUrl;

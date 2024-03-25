@@ -68,7 +68,7 @@ exports.deleteNews = (req, res) => {
       return news.destroy();
     })
     .then((updatedNews) => {
-      News.findAll().then((news) => {
+      News.findAll().then((allNews) => {
         res.json({ allNews, updatedNews });
       });
     });
