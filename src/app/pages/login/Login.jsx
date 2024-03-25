@@ -2,7 +2,7 @@
 import { Button, Form, Input, Typography } from "antd";
 import React from "react";
 import { useHistory } from "react-router-dom";
-import cisrLogo from "../assets/cisr_logo.png";
+import cisrLogo from "../../assets/cisr_logo.png";
 const { Title } = Typography;
 
 const Login = ({ setIsLoggedIn }) => {
