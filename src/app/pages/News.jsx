@@ -114,9 +114,9 @@ const News = () => {
         <List>
           {news?.map((item) => {
             let subtitleFormatted =
-              item.description.length > 60
-                ? item.description.slice(0, 60) + "...."
-                : item.description;
+              item?.description?.length > 60
+                ? item?.description?.slice(0, 60) + "...."
+                : item?.description;
             return (
               <List.Item key={item.id}>
                 <List.Item.Meta

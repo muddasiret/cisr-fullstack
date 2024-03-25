@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { UploadOutlined } from "@ant-design/icons";
+import { FileOutlined, UploadOutlined } from "@ant-design/icons";
 import { Button, message, Upload } from "antd";
 import useFileUpload from "../hooks/useFileUpload";
 
@@ -14,10 +14,13 @@ const FileUpload = ({
 }) => {
   const [isUploading, setUploading] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [imageUrl, setImageUrl] = useState(fileUrl);
+  const [fileURL, setFileURL] = useState(fileUrl);
   const [file, setFile] = useState(null);
 
   const onSuccess = (fileLink) => {
+    if (name !== "image") {
+      setFileURL(fileLink);
+    }
     afterUpload(name, fileLink);
   };
 
@@ -33,19 +36,13 @@ const FileUpload = ({
     itemId
   );
 
-  // useEffect(() => {
-  //   uploadFile(file);
-  //   // Do NOT put uploadFile function as dependency here
-  //   // eslint-disable-next-line
-  // }, [file]);
-
   const handleChange = (info) => {
     setFile(info.file);
     setImageFile(info.file);
 
     getBase64(info.file, (url) => {
       setLoading(false);
-      setImageUrl(url);
+      setFileURL(url);
     });
     if (info.file.status === "uploading") {
       setLoading(true);
@@ -84,18 +81,30 @@ const FileUpload = ({
         className="upload-file"
         accept={accept}
       >
-        {imageUrl && (
+        {fileURL && name === "image" ? (
           <img
-            src={imageUrl}
+            src={fileURL}
             alt="avatar"
             style={{
               width: "100%",
-              display: name === "image" ? "unset" : "none",
             }}
           />
+        ) : (
+          <div className="flex mb-2">
+            <FileOutlined />
+            <div>
+              <a className="pdf-link" href={fileURL} target="_blank">
+                {fileURL}
+              </a>{" "}
+            </div>
+          </div>
         )}
-        <Button icon={<UploadOutlined />}>
-          {imageUrl ? "Change" : "Select"} File
+        <Button disabled={uploading} icon={<UploadOutlined />}>
+          {!uploading
+            ? fileURL
+              ? "Change File"
+              : "Select File"
+            : "Uploading....Pls wait"}
         </Button>
       </Upload>
     </>

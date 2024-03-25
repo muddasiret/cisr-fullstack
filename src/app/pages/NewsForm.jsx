@@ -62,7 +62,7 @@ const NewsForm = ({
           span: 4,
         }}
         wrapperCol={{
-          span: 14,
+          span: 22,
         }}
         layout="vertical"
         style={{
@@ -128,7 +128,7 @@ const NewsForm = ({
               name={"pdf_link"}
             >
               <FileUpload
-                name="pdf"
+                name="pdf_link"
                 prefix="news"
                 length={newsLength}
                 setImageFile={setImageFile}
