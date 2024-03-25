@@ -1,12 +1,13 @@
 const express = require("express");
 
-const adminController = require("../controllers");
+const newsController = require("../controllers/news");
 
 const router = express.Router();
 
-router.get("/news", adminController.getNews);
-router.post("/news-update", adminController.postNews);
-router.put("/news-update", adminController.editNews);
-router.post("/news-delete", adminController.deleteNews);
+// NEWS
+router.get("/news", newsController.getNews);
+router.post("/news-update", newsController.postNews);
+router.put("/news-update", newsController.editNews);
+router.post("/news-delete", newsController.deleteNews);
 
 module.exports = router;

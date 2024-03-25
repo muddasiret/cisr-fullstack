@@ -90,16 +90,22 @@ const FileUpload = ({
             }}
           />
         ) : (
-          <div className="flex mb-2">
-            <FileOutlined />
-            <div>
-              <a className="pdf-link" href={fileURL} target="_blank">
-                {fileURL}
-              </a>{" "}
+          fileURL && (
+            <div className="flex mb-2">
+              <FileOutlined />
+              <div>
+                <a className="pdf-link" href={fileURL} target="_blank">
+                  {fileURL}
+                </a>{" "}
+              </div>
             </div>
-          </div>
+          )
         )}
-        <Button disabled={uploading} icon={<UploadOutlined />}>
+        <Button
+          disabled={uploading}
+          loading={uploading}
+          icon={<UploadOutlined />}
+        >
           {!uploading
             ? fileURL
               ? "Change File"
