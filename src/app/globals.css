@@ -23,3 +23,13 @@
   padding-left: 5px;
   padding-top: 2px;
 }
+
+.event-datetime {
+  flex: 1;
+  display: flex;
+  font-style: italic;
+}
+
+.event-datetime div {
+  margin: 4px;
+}

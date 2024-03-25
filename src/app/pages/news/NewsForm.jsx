@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { PlusOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Upload } from "antd";
-import axiosInstance from "../utils/axiosInterceptor";
-import FileUpload from "../components/FileUpload";
+import axiosInstance from "../../utils/axiosInterceptor";
+import FileUpload from "../../components/FileUpload";
 const { TextArea } = Input;
 
 const normFile = (e) => {
@@ -139,7 +139,7 @@ const NewsForm = ({
               />
             </Form.Item>
           </div>
-          <div className="sticky bottom-2 right-0 w-full flex justify-end">
+          <div className="sticky bottom-0 pb-2 right-0 w-full flex justify-end bg-white">
             <Button
               htmlType="submit"
               type="primary"

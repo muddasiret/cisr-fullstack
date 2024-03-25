@@ -1,6 +1,6 @@
 import { Suspense, lazy, useEffect, useState } from "react";
-import axiosInstance from "../utils/axiosInterceptor";
-import { Avatar, Button, List, Modal, Typography } from "antd";
+import axiosInstance from "../../utils/axiosInterceptor";
+import { Avatar, Button, Image, List, Modal, Typography } from "antd";
 const { Title } = Typography;
 
 const NewsForm = lazy(() => import("./NewsForm"));
@@ -122,7 +122,9 @@ const News = () => {
             return (
               <List.Item key={item.id}>
                 <List.Item.Meta
-                  avatar={<Avatar src={item.image} />}
+                  avatar={
+                    <Image className=" rounded" width={60} src={item.image} />
+                  }
                   title={<a href="https://ant.design">{item.title}</a>}
                   description={subtitleFormatted}
                 />

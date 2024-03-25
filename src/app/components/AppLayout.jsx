@@ -25,6 +25,13 @@ const AppLayout = ({ children }) => {
         }}
       >
         <div className="demo-logo-vertical" />
+        <div
+          className="p-2 mt-2 ml-[-20px] flex flex-col justify-center items-center"
+          // style={{ borderBottom: "0.5px solid grey" }}
+        >
+          <img src="/cisr_logo.png" style={{ height: 40 }} />
+          <div className=" italic text-white mt-3">Admin dashboard</div>
+        </div>
         <Menu
           theme="dark"
           mode="inline"

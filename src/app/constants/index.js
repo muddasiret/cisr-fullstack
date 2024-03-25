@@ -8,15 +8,19 @@ export const routes = [
     path: "/news",
   },
   {
+    title: "Events",
+    path: "/events",
+  },
+  {
     title: "About",
     path: "/about",
   },
   {
-    title: "Programmes - Academic",
+    title: "Prog - Academic",
     path: "/academic",
   },
   {
-    title: "Programmes - Semi Academic",
+    title: "Prog - Semi Academic",
     path: "/semi-academic",
   },
   {
@@ -34,9 +38,5 @@ export const routes = [
   {
     title: "Sow a seed",
     path: "/sow_a_seed",
-  },
-  {
-    title: "Events",
-    path: "/events",
   },
 ];
