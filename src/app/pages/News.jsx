@@ -46,7 +46,6 @@ const News = () => {
       .get("/api/news")
       .then((response) => {
         setNews(response.data.allNews);
-        setNews(response.data.allNews);
       })
       .catch((error) => {
         console.error("Error:", error);
