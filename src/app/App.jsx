@@ -3,6 +3,7 @@ import React, { Suspense, lazy, useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import AppLayout from "./components/AppLayout";
 import Login from "./pages/login/Login";
+import Home from "./pages/home";
 
 const News = lazy(() => import("./pages/news/News"));
 const Events = lazy(() => import("./pages/events/Events"));
@@ -30,7 +31,7 @@ function App() {
           <Suspense fallback={<div>Loading...</div>}>
             {isLoggedIn && (
               <>
-                <Route exact path="/" component={News} />
+                <Route exact path="/" component={Home} />
                 <Route path="/news" component={News} />
                 <Route path="/events" component={Events} />
               </>

@@ -6,7 +6,7 @@ import useFileUpload from "../hooks/useFileUpload";
 const FileUpload = ({
   prefix = "news",
   name,
-  setImageFile,
+  setImageFile = () => {},
   itemId,
   afterUpload = () => {},
   fileUrl = null,
@@ -84,7 +84,7 @@ const FileUpload = ({
         {fileURL && name === "image" ? (
           <img
             src={fileURL}
-            alt="avatar"
+            alt="img"
             style={{
               width: "100%",
             }}
