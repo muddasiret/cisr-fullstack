@@ -3,6 +3,8 @@ import { PlusOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Upload } from "antd";
 import axiosInstance from "../../utils/axiosInterceptor";
 import FileUpload from "../../components/FileUpload";
+import QuillEditor from "../../components/QuillEditor";
+
 const { TextArea } = Input;
 
 const normFile = (e) => {
@@ -53,6 +55,11 @@ const NewsForm = ({
     form.setFieldValue(type, url);
   };
 
+  function onDescChange(content) {
+    setEditedValues({ ...editedValues, description: content });
+    form.setFieldValue("description", content);
+  }
+
   return (
     <>
       <Form
@@ -99,7 +106,10 @@ const NewsForm = ({
               <Input />
             </Form.Item>
             <Form.Item label="Description" name="description">
-              <TextArea rows={4} />
+              <QuillEditor
+                handleChange={onDescChange}
+                value={editedValues.description}
+              />
             </Form.Item>
             <Form.Item
               label="Image"

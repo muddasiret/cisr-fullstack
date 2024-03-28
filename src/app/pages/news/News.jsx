@@ -115,10 +115,6 @@ const News = () => {
         </div>
         <List>
           {news?.map((item) => {
-            let subtitleFormatted =
-              item?.description?.length > 60
-                ? item?.description?.slice(0, 60) + "...."
-                : item?.description;
             return (
               <List.Item
                 className="bg-[#d9d9d957] !pr-3 !pl-2 rounded-lg mb-3"
@@ -129,7 +125,11 @@ const News = () => {
                     <Image className=" rounded" width={60} src={item.image} />
                   }
                   title={<a href="https://ant.design">{item.title}</a>}
-                  description={subtitleFormatted}
+                  description={
+                    <div
+                      dangerouslySetInnerHTML={{ __html: item.description }}
+                    />
+                  }
                 />
                 <div className="flex">
                   <Button
