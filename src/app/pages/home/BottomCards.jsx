@@ -3,10 +3,10 @@ import axiosInstance from "../../utils/axiosInterceptor";
 import { Avatar, Button, Image, List, Modal, Typography } from "antd";
 const { Title } = Typography;
 
-const EventsForm = lazy(() => import("./EventsForm"));
+const BottomcardsForm = lazy(() => import("./BottomCardsForm"));
 
-const Events = () => {
-  const [events, setEvents] = useState(null);
+const Bottomcards = () => {
+  const [Bottomcards, setBottomcards] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -25,16 +25,16 @@ const Events = () => {
     setIsModalOpen(false);
   };
 
-  function showDeleteModal(events) {
-    setIsDeleteModalOpen(events);
+  function showDeleteModal(Bottomcards) {
+    setIsDeleteModalOpen(Bottomcards);
   }
 
-  function deleteEvents() {
+  function deleteBottomcards() {
     setIsDeleting(true);
     axiosInstance
-      .post("/api/events-delete", isDeleteModalOpen)
+      .post("/api/bottomcards-delete", isDeleteModalOpen)
       .then((response) => {
-        setEvents(response.data.allEvents);
+        setBottomcards(response.data.allBottomcards);
         setIsDeleteModalOpen(false);
       })
       .catch((error) => {
@@ -42,11 +42,11 @@ const Events = () => {
       });
   }
 
-  function fetchEvents() {
+  function fetchBottomcards() {
     axiosInstance
-      .get("/api/events")
+      .get("/api/bottomcards")
       .then((response) => {
-        setEvents(response.data.allEvents);
+        setBottomcards(response.data.allBottomcards);
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -54,7 +54,7 @@ const Events = () => {
   }
 
   useEffect(() => {
-    fetchEvents();
+    fetchBottomcards();
   }, []);
 
   return (
@@ -63,14 +63,14 @@ const Events = () => {
         <Modal
           title={"Are you sure you want to delete?"}
           open={!!isDeleteModalOpen}
-          onOk={deleteEvents}
+          onOk={deleteBottomcards}
           onCancel={() => setIsDeleteModalOpen(false)}
           okText={"Confirm"}
           okButtonProps={{
             loading: isUpdating,
           }}
         >
-          Confirm delete of events "
+          Confirm delete of Bottomcard "
           <i>
             <b>{isDeleteModalOpen.title}</b>
           </i>
@@ -79,7 +79,7 @@ const Events = () => {
       )}
       {isModalOpen && (
         <Modal
-          title="Edit Events"
+          title="Edit Bottomcards"
           open={isModalOpen}
           onOk={handleOk}
           onCancel={handleCancel}
@@ -92,50 +92,54 @@ const Events = () => {
         >
           <div className=" max-h-[70vh] overflow-y-auto">
             <Suspense fallback={<div>Loading...</div>}>
-              <EventsForm
+              <BottomcardsForm
                 defaultValues={formValues}
-                setEvents={setEvents}
+                setBottomcards={setBottomcards}
                 handleCancel={handleCancel}
                 setIsUpdating={setIsUpdating}
                 isUpdating={isUpdating}
-                newsLength={events.length}
+                BottomcardsLength={Bottomcards.length}
               />
             </Suspense>
           </div>
         </Modal>
       )}
       <div>
-        <div className="flex items-center justify-between mb-5">
-          <Title className="m-0" level={3}>
-            Events
+        <div className="flex items-center justify-between mb-0">
+          <Title className="m-0" level={5}>
+            Bottomcards
           </Title>
           <Button onClick={() => showModal({})} type="primary">
-            Add Events
+            Add bottomcard
           </Button>
         </div>
-        <List>
-          {events?.map((item) => {
+        <List className="mt-4">
+          {Bottomcards?.map((item) => {
             let subtitleFormatted =
-              item?.description?.length > 60
-                ? item?.description?.slice(0, 60) + "...."
-                : item?.description;
+              item?.subtitle?.length > 60
+                ? item?.subtitle?.slice(0, 60) + "...."
+                : item?.subtitle;
             return (
               <List.Item
-                className="bg-[#d9d9d957] !pr-3 !pl-2 rounded-lg mb-3"
+                className="bg-[#d9d9d957] !pr-3 !pl-2 rounded-lg"
                 key={item.id}
               >
-                {" "}
                 <List.Item.Meta
-                  avatar={<Image width={60} src={item.image} />}
+                  avatar={
+                    <Image
+                      className=" rounded !h-12 object-contain"
+                      width={60}
+                      src={
+                        item.image
+                          ? item.image
+                          : "https://png.pngtree.com/png-vector/20190820/ourmid/pngtree-no-image-vector-illustration-isolated-png-image_1694547.jpg"
+                      }
+                    />
+                  }
                   title={<a href="https://ant.design">{item.title}</a>}
                   description={subtitleFormatted}
                 />
-                <div className="event-datetime mt-3">
-                  <div>Date: {item.date}</div>
-                  <div>Time: {item.time}</div>
-                  <div>Location: {item.location}</div>
-                </div>
-                <div className="flex mt-2">
+                <div className="flex">
                   <Button
                     onClick={() => showModal(item)}
                     className=" text-black mr-2"
@@ -161,4 +165,4 @@ const Events = () => {
   );
 };
 
-export default Events;
+export default Bottomcards;

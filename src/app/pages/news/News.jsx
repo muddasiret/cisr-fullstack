@@ -120,7 +120,10 @@ const News = () => {
                 ? item?.description?.slice(0, 60) + "...."
                 : item?.description;
             return (
-              <List.Item key={item.id}>
+              <List.Item
+                className="bg-[#d9d9d957] !pr-3 !pl-2 rounded-lg mb-3"
+                key={item.id}
+              >
                 <List.Item.Meta
                   avatar={
                     <Image className=" rounded" width={60} src={item.image} />

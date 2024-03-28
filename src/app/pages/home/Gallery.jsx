@@ -3,10 +3,10 @@ import axiosInstance from "../../utils/axiosInterceptor";
 import { Avatar, Button, Image, List, Modal, Typography } from "antd";
 const { Title } = Typography;
 
-const EventsForm = lazy(() => import("./EventsForm"));
+const GalleryForm = lazy(() => import("./GallleryForm"));
 
-const Events = () => {
-  const [events, setEvents] = useState(null);
+const Gallery = () => {
+  const [Gallery, setGallery] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -25,16 +25,16 @@ const Events = () => {
     setIsModalOpen(false);
   };
 
-  function showDeleteModal(events) {
-    setIsDeleteModalOpen(events);
+  function showDeleteModal(Gallery) {
+    setIsDeleteModalOpen(Gallery);
   }
 
-  function deleteEvents() {
+  function deleteGallery() {
     setIsDeleting(true);
     axiosInstance
-      .post("/api/events-delete", isDeleteModalOpen)
+      .post("/api/gallery-delete", isDeleteModalOpen)
       .then((response) => {
-        setEvents(response.data.allEvents);
+        setGallery(response.data.allGallery);
         setIsDeleteModalOpen(false);
       })
       .catch((error) => {
@@ -42,11 +42,11 @@ const Events = () => {
       });
   }
 
-  function fetchEvents() {
+  function fetchGallery() {
     axiosInstance
-      .get("/api/events")
+      .get("/api/gallery")
       .then((response) => {
-        setEvents(response.data.allEvents);
+        setGallery(response.data.allGallery);
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -54,7 +54,7 @@ const Events = () => {
   }
 
   useEffect(() => {
-    fetchEvents();
+    fetchGallery();
   }, []);
 
   return (
@@ -63,14 +63,14 @@ const Events = () => {
         <Modal
           title={"Are you sure you want to delete?"}
           open={!!isDeleteModalOpen}
-          onOk={deleteEvents}
+          onOk={deleteGallery}
           onCancel={() => setIsDeleteModalOpen(false)}
           okText={"Confirm"}
           okButtonProps={{
             loading: isUpdating,
           }}
         >
-          Confirm delete of events "
+          Confirm delete of Gallery "
           <i>
             <b>{isDeleteModalOpen.title}</b>
           </i>
@@ -79,7 +79,7 @@ const Events = () => {
       )}
       {isModalOpen && (
         <Modal
-          title="Edit Events"
+          title="Edit Gallery"
           open={isModalOpen}
           onOk={handleOk}
           onCancel={handleCancel}
@@ -92,50 +92,50 @@ const Events = () => {
         >
           <div className=" max-h-[70vh] overflow-y-auto">
             <Suspense fallback={<div>Loading...</div>}>
-              <EventsForm
+              <GalleryForm
                 defaultValues={formValues}
-                setEvents={setEvents}
+                setGallery={setGallery}
                 handleCancel={handleCancel}
                 setIsUpdating={setIsUpdating}
                 isUpdating={isUpdating}
-                newsLength={events.length}
+                GalleryLength={Gallery.length}
               />
             </Suspense>
           </div>
         </Modal>
       )}
       <div>
-        <div className="flex items-center justify-between mb-5">
-          <Title className="m-0" level={3}>
-            Events
+        <div className="flex items-center justify-between mb-0">
+          <Title className="m-0" level={5}>
+            Image Gallery
           </Title>
           <Button onClick={() => showModal({})} type="primary">
-            Add Events
+            Add Images
           </Button>
         </div>
-        <List>
-          {events?.map((item) => {
+        <List className="mt-4">
+          {Gallery?.map((item) => {
             let subtitleFormatted =
-              item?.description?.length > 60
-                ? item?.description?.slice(0, 60) + "...."
-                : item?.description;
+              item?.subtitle?.length > 60
+                ? item?.subtitle?.slice(0, 60) + "...."
+                : item?.subtitle;
             return (
               <List.Item
                 className="bg-[#d9d9d957] !pr-3 !pl-2 rounded-lg mb-3"
                 key={item.id}
               >
-                {" "}
                 <List.Item.Meta
-                  avatar={<Image width={60} src={item.image} />}
+                  avatar={
+                    <Image
+                      className=" rounded !h-12 object-contain"
+                      width={60}
+                      src={item.image}
+                    />
+                  }
                   title={<a href="https://ant.design">{item.title}</a>}
                   description={subtitleFormatted}
                 />
-                <div className="event-datetime mt-3">
-                  <div>Date: {item.date}</div>
-                  <div>Time: {item.time}</div>
-                  <div>Location: {item.location}</div>
-                </div>
-                <div className="flex mt-2">
+                <div className="flex">
                   <Button
                     onClick={() => showModal(item)}
                     className=" text-black mr-2"
@@ -161,4 +161,4 @@ const Events = () => {
   );
 };
 
-export default Events;
+export default Gallery;

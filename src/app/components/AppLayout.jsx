@@ -60,7 +60,7 @@ const AppLayout = ({ children }) => {
             textAlign: "center",
           }}
         >
-          Ant Design ©{new Date().getFullYear()} Created by Ant UED
+          CISR ©{new Date().getFullYear()}
         </Footer>
       </Layout>
     </Layout>

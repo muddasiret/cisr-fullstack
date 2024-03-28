@@ -30,7 +30,6 @@ body {
 
 .event-datetime {
   flex: 1;
-  display: flex;
   font-style: italic;
 }
 
