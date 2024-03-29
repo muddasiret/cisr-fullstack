@@ -11,17 +11,17 @@ const normFile = (e) => {
   return e?.fileList;
 };
 
-const NewsForm = ({
+const SowaseedForm = ({
   defaultValues = {},
-  setNews,
+  setSowaseed,
   handleCancel,
   setIsUpdating,
   isUpdating,
-  newsLength = 0,
+  sowaseedLength = 0,
 }) => {
   const [editedValues, setEditedValues] = useState(defaultValues);
   const [itemId, setItemId] = useState(
-    defaultValues.id ? defaultValues.id : newsLength + 1
+    defaultValues.id ? defaultValues.id : sowaseedLength + 1
   );
 
   const [form] = Form.useForm();
@@ -30,18 +30,18 @@ const NewsForm = ({
     setIsUpdating(true);
     let res;
     if (Object.keys(defaultValues).length !== 0) {
-      res = await axiosInstance.put("/api/news-update", {
+      res = await axiosInstance.put("/api/sowaseed-update", {
         ...defaultValues,
         ...editedValues,
       });
     } else {
-      res = await axiosInstance.post("/api/news-update", {
+      res = await axiosInstance.post("/api/sowaseed-update", {
         ...defaultValues,
         ...editedValues,
       });
     }
     if (res?.data) {
-      setNews(res.data.allNews);
+      setSowaseed(res.data.allSowaseed);
       handleCancel();
     }
   }
@@ -84,21 +84,18 @@ const NewsForm = ({
         <div className="relative">
           <div className="mb-4">
             <Form.Item
-              label="Title*"
-              name={"title"}
+              label="Name*"
+              name={"name"}
               rules={[
                 {
                   required: true,
-                  message: "Title is required!",
+                  message: "Name is required!",
                 },
               ]}
             >
               <Input />
             </Form.Item>
-            <Form.Item label="Subtitle" name={"subtitle"}>
-              <Input />
-            </Form.Item>
-            <Form.Item label="Section" name="section">
+            <Form.Item label="Day" name={"day"}>
               <Input />
             </Form.Item>
             <Form.Item label="Description" name="description">
@@ -115,31 +112,11 @@ const NewsForm = ({
             >
               <FileUpload
                 name="image"
-                prefix="news"
-                length={newsLength}
+                prefix="sowaseed"
+                length={sowaseedLength}
                 itemId={itemId}
                 afterUpload={afterFileUpload}
                 fileUrl={editedValues.image}
-              />
-            </Form.Item>
-            <Form.Item label="Pdf Label" name="pdf_text">
-              <Input />
-            </Form.Item>
-
-            <Form.Item
-              label="Pdf"
-              valuePropName="fileList"
-              getValueFromEvent={normFile}
-              name={"pdf_link"}
-            >
-              <FileUpload
-                name="pdf_link"
-                prefix="news"
-                length={newsLength}
-                itemId={itemId}
-                afterUpload={afterFileUpload}
-                fileUrl={editedValues.pdf_link}
-                accept=".pdf"
               />
             </Form.Item>
           </div>
@@ -159,4 +136,4 @@ const NewsForm = ({
     </>
   );
 };
-export default React.memo(NewsForm);
+export default React.memo(SowaseedForm);

@@ -2,7 +2,7 @@ const { Sequelize } = require("sequelize");
 
 const sequelize = require("./index");
 
-const Book = sequelize.define("book", {
+const Sowseed = sequelize.define("sowaseed", {
   id: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
@@ -13,18 +13,18 @@ const Book = sequelize.define("book", {
     type: Sequelize.STRING,
     allowNull: true,
   },
-  title: {
+  name: {
     type: Sequelize.STRING,
     allowNull: true,
   },
-  body: {
+  day: {
     type: Sequelize.STRING,
     allowNull: true,
   },
-  author: {
-    type: Sequelize.STRING,
+  description: {
+    type: Sequelize.TEXT,
     allowNull: true,
   },
 });
 
-module.exports = Book;
+module.exports = Sowseed;

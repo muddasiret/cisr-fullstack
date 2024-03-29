@@ -3,10 +3,10 @@ import axiosInstance from "../../utils/axiosInterceptor";
 import { Button, Image, List, Modal, Typography } from "antd";
 const { Title } = Typography;
 
-const NewsForm = lazy(() => import("./NewsForm"));
+const SowaseedForm = lazy(() => import("./SowaseedForm"));
 
-const News = () => {
-  const [news, setNews] = useState(null);
+const Sowaseed = () => {
+  const [sowaseed, setSowaseed] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -25,16 +25,16 @@ const News = () => {
     setIsModalOpen(false);
   };
 
-  function showDeleteModal(news) {
-    setIsDeleteModalOpen(news);
+  function showDeleteModal(sowaseed) {
+    setIsDeleteModalOpen(sowaseed);
   }
 
-  function deleteNews() {
+  function deleteSowaseed() {
     setIsDeleting(true);
     axiosInstance
-      .post("/api/news-delete", isDeleteModalOpen)
+      .post("/api/sowaseed-delete", isDeleteModalOpen)
       .then((response) => {
-        setNews(response.data.allNews);
+        setSowaseed(response.data.allSowaseed);
         setIsDeleteModalOpen(false);
       })
       .catch((error) => {
@@ -42,11 +42,11 @@ const News = () => {
       });
   }
 
-  function fetchNews() {
+  function fetchSowaseed() {
     axiosInstance
-      .get("/api/news")
+      .get("/api/sowaseed")
       .then((response) => {
-        setNews(response.data.allNews);
+        setSowaseed(response.data.allSowaseed);
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -54,7 +54,7 @@ const News = () => {
   }
 
   useEffect(() => {
-    fetchNews();
+    fetchSowaseed();
   }, []);
 
   return (
@@ -63,14 +63,14 @@ const News = () => {
         <Modal
           title={"Are you sure you want to delete?"}
           open={!!isDeleteModalOpen}
-          onOk={deleteNews}
+          onOk={deleteSowaseed}
           onCancel={() => setIsDeleteModalOpen(false)}
           okText={"Confirm"}
           okButtonProps={{
             loading: isUpdating,
           }}
         >
-          Confirm delete of news "
+          Confirm delete of sowaseed "
           <i>
             <b>{isDeleteModalOpen.title}</b>
           </i>
@@ -81,7 +81,7 @@ const News = () => {
         <Modal
           width={600}
           style={{ height: "90vh" }}
-          title="Edit News"
+          title="Edit Sowaseed"
           open={isModalOpen}
           onOk={handleOk}
           onCancel={handleCancel}
@@ -94,13 +94,13 @@ const News = () => {
         >
           <div className=" max-h-[70vh] overflow-y-auto">
             <Suspense fallback={<div>Loading...</div>}>
-              <NewsForm
+              <SowaseedForm
                 defaultValues={formValues}
-                setNews={setNews}
+                setSowaseed={setSowaseed}
                 handleCancel={handleCancel}
                 setIsUpdating={setIsUpdating}
                 isUpdating={isUpdating}
-                newsLength={news.length}
+                sowaseedLength={sowaseed.length}
               />
             </Suspense>
           </div>
@@ -109,14 +109,14 @@ const News = () => {
       <div>
         <div className="flex items-center justify-between mb-5">
           <Title className="m-0" level={3}>
-            News
+            Sowaseed
           </Title>
           <Button onClick={() => showModal({})} type="primary">
-            Add News
+            Add Day event
           </Button>
         </div>
         <List>
-          {news?.map((item) => {
+          {sowaseed?.map((item) => {
             return (
               <List.Item
                 className="bg-[#d9d9d957] !pr-3 !pl-2 rounded-lg mb-3"
@@ -159,4 +159,4 @@ const News = () => {
   );
 };
 
-export default News;
+export default Sowaseed;

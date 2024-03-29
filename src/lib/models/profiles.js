@@ -2,29 +2,34 @@ const { Sequelize } = require("sequelize");
 
 const sequelize = require("./index");
 
-const Sowseed = sequelize.define("sowseed", {
+const Profiles = sequelize.define("profiles", {
   id: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
     allowNull: false,
     primaryKey: true,
   },
-  image: {
-    type: Sequelize.STRING,
-    allowNull: true,
-  },
   name: {
     type: Sequelize.STRING,
     allowNull: true,
   },
-  day: {
+  designation: {
     type: Sequelize.STRING,
     allowNull: true,
   },
-  body: {
+  description: {
+    type: Sequelize.TEXT,
+    allowNull: true,
+  },
+  image: {
     type: Sequelize.STRING,
     allowNull: true,
+  },
+  slug: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    unique: true,
   },
 });
 
-module.exports = Sowseed;
+module.exports = Profiles;

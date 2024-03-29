@@ -32,11 +32,15 @@ export const routes = [
     path: "/projects",
   },
   {
+    title: "Profiles",
+    path: "/profiles",
+  },
+  {
     title: "Tea over books",
-    path: "/tea_over_books",
+    path: "/books",
   },
   {
     title: "Sow a seed",
-    path: "/sow_a_seed",
+    path: "/sowaseed",
   },
 ];

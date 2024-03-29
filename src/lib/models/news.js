@@ -38,6 +38,11 @@ const News = sequelize.define("news", {
     type: Sequelize.STRING,
     allowNull: true,
   },
+  slug: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    unique: true,
+  },
 });
 
 module.exports = News;

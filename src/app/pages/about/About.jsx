@@ -1,6 +1,6 @@
 import { Suspense, lazy, useEffect, useState } from "react";
 import axiosInstance from "../../utils/axiosInterceptor";
-import { Avatar, Button, Image, List, Modal, Typography } from "antd";
+import { Button, List, Modal, Typography } from "antd";
 const { Title } = Typography;
 
 const AboutForm = lazy(() => import("./AboutForm"));

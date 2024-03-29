@@ -2,14 +2,22 @@ const { Sequelize } = require("sequelize");
 
 const sequelize = require("./index");
 
-const Paper = sequelize.define("paper", {
+const Books = sequelize.define("books", {
   id: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
     allowNull: false,
     primaryKey: true,
   },
+  image: {
+    type: Sequelize.STRING,
+    allowNull: true,
+  },
   title: {
+    type: Sequelize.STRING,
+    allowNull: true,
+  },
+  description: {
     type: Sequelize.STRING,
     allowNull: true,
   },
@@ -17,19 +25,6 @@ const Paper = sequelize.define("paper", {
     type: Sequelize.STRING,
     allowNull: true,
   },
-  image: {
-    type: Sequelize.STRING,
-    allowNull: true,
-  },
-  pdf_link: {
-    type: Sequelize.STRING,
-    allowNull: true,
-  },
-  slug: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    unique: true,
-  },
 });
 
-module.exports = Paper;
+module.exports = Books;

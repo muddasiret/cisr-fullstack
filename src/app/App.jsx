@@ -9,6 +9,9 @@ const News = lazy(() => import("./pages/news/News"));
 const Events = lazy(() => import("./pages/events/Events"));
 const About = lazy(() => import("./pages/about/About"));
 const Paper = lazy(() => import("./pages/paper/Paper"));
+const Books = lazy(() => import("./pages/books/Books"));
+const Sowaseed = lazy(() => import("./pages/sowaseed/sowaseed"));
+
 const NotFound = () => <div>Not Found</div>; // Define a NotFound component
 
 function App() {
@@ -38,6 +41,8 @@ function App() {
                 <Route path="/events" component={Events} />
                 <Route path="/about" component={About} />
                 <Route path="/papers" component={Paper} />
+                <Route path="/books" component={Books} />
+                <Route path="/sowaseed" component={Sowaseed} />
               </>
             )}
           </Suspense>

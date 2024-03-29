@@ -3,10 +3,10 @@ import axiosInstance from "../../utils/axiosInterceptor";
 import { Button, Image, List, Modal, Typography } from "antd";
 const { Title } = Typography;
 
-const NewsForm = lazy(() => import("./NewsForm"));
+const BooksForm = lazy(() => import("./BooksForm"));
 
-const News = () => {
-  const [news, setNews] = useState(null);
+const Books = () => {
+  const [books, setBooks] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -25,16 +25,16 @@ const News = () => {
     setIsModalOpen(false);
   };
 
-  function showDeleteModal(news) {
-    setIsDeleteModalOpen(news);
+  function showDeleteModal(books) {
+    setIsDeleteModalOpen(books);
   }
 
-  function deleteNews() {
+  function deleteBooks() {
     setIsDeleting(true);
     axiosInstance
-      .post("/api/news-delete", isDeleteModalOpen)
+      .post("/api/books-delete", isDeleteModalOpen)
       .then((response) => {
-        setNews(response.data.allNews);
+        setBooks(response.data.allBooks);
         setIsDeleteModalOpen(false);
       })
       .catch((error) => {
@@ -42,11 +42,11 @@ const News = () => {
       });
   }
 
-  function fetchNews() {
+  function fetchBooks() {
     axiosInstance
-      .get("/api/news")
+      .get("/api/books")
       .then((response) => {
-        setNews(response.data.allNews);
+        setBooks(response.data.allBooks);
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -54,7 +54,7 @@ const News = () => {
   }
 
   useEffect(() => {
-    fetchNews();
+    fetchBooks();
   }, []);
 
   return (
@@ -63,14 +63,14 @@ const News = () => {
         <Modal
           title={"Are you sure you want to delete?"}
           open={!!isDeleteModalOpen}
-          onOk={deleteNews}
+          onOk={deleteBooks}
           onCancel={() => setIsDeleteModalOpen(false)}
           okText={"Confirm"}
           okButtonProps={{
             loading: isUpdating,
           }}
         >
-          Confirm delete of news "
+          Confirm delete of books "
           <i>
             <b>{isDeleteModalOpen.title}</b>
           </i>
@@ -81,7 +81,7 @@ const News = () => {
         <Modal
           width={600}
           style={{ height: "90vh" }}
-          title="Edit News"
+          title="Edit Books"
           open={isModalOpen}
           onOk={handleOk}
           onCancel={handleCancel}
@@ -94,13 +94,13 @@ const News = () => {
         >
           <div className=" max-h-[70vh] overflow-y-auto">
             <Suspense fallback={<div>Loading...</div>}>
-              <NewsForm
+              <BooksForm
                 defaultValues={formValues}
-                setNews={setNews}
+                setBooks={setBooks}
                 handleCancel={handleCancel}
                 setIsUpdating={setIsUpdating}
                 isUpdating={isUpdating}
-                newsLength={news.length}
+                booksLength={books.length}
               />
             </Suspense>
           </div>
@@ -109,14 +109,14 @@ const News = () => {
       <div>
         <div className="flex items-center justify-between mb-5">
           <Title className="m-0" level={3}>
-            News
+            Books
           </Title>
           <Button onClick={() => showModal({})} type="primary">
-            Add News
+            Add Books
           </Button>
         </div>
         <List>
-          {news?.map((item) => {
+          {books?.map((item) => {
             return (
               <List.Item
                 className="bg-[#d9d9d957] !pr-3 !pl-2 rounded-lg mb-3"
@@ -159,4 +159,4 @@ const News = () => {
   );
 };
 
-export default News;
+export default Books;
