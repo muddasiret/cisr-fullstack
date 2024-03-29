@@ -2,39 +2,29 @@ const { Sequelize } = require("sequelize");
 
 const sequelize = require("./index");
 
-const Events = sequelize.define("events", {
+const Book = sequelize.define("book", {
   id: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
     allowNull: false,
     primaryKey: true,
   },
-  title: Sequelize.STRING,
-  location: {
-    type: Sequelize.STRING,
-    allowNull: true,
-  },
-  date: {
-    type: Sequelize.STRING,
-    allowNull: true,
-  },
-  time: {
-    type: Sequelize.STRING,
-    allowNull: true,
-  },
-  description: {
-    type: Sequelize.TEXT,
-    allowNull: true,
-  },
   image: {
     type: Sequelize.STRING,
     allowNull: true,
   },
-  slug: {
+  title: {
     type: Sequelize.STRING,
-    allowNull: false,
-    unique: true,
+    allowNull: true,
+  },
+  body: {
+    type: Sequelize.STRING,
+    allowNull: true,
+  },
+  author: {
+    type: Sequelize.STRING,
+    allowNull: true,
   },
 });
 
-module.exports = Events;
+module.exports = Book;

@@ -98,7 +98,7 @@ const Events = () => {
                 handleCancel={handleCancel}
                 setIsUpdating={setIsUpdating}
                 isUpdating={isUpdating}
-                newsLength={events.length}
+                newsLength={events?.length}
               />
             </Suspense>
           </div>

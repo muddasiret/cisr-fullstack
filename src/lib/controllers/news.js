@@ -1,9 +1,24 @@
+const slugify = require("slugify");
 const News = require("../models/news");
 
 exports.getNews = (req, res) => {
   News.findAll().then((allNews) => {
     res.json({ allNews });
   });
+};
+
+exports.getSingleNews = async (req, res) => {
+  try {
+    const { slug } = req.params;
+    const content = await News.findOne({ where: { slug } });
+    if (!content) {
+      return res.status(404).json({ message: "Content not found" });
+    }
+    res.json(content);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
 };
 
 exports.postNews = (req, res) => {
@@ -15,6 +30,7 @@ exports.postNews = (req, res) => {
   const pdf_link = req.body.pdf_link;
   const image = req.body.image;
   const section = req.body.section;
+  const slug = slugify(title, { lower: true });
   News.create({
     title,
     subtitle,
@@ -24,11 +40,16 @@ exports.postNews = (req, res) => {
     pdf_link,
     image,
     section,
-  }).then((updatedNews) => {
-    News.findAll().then((allNews) => {
-      res.json({ allNews, updatedNews });
+    slug,
+  })
+    .then((updatedNews) => {
+      News.findAll().then((allNews) => {
+        res.json({ allNews, updatedNews });
+      });
+    })
+    .catch((err) => {
+      res.status(500).json(err);
     });
-  });
 };
 
 exports.editNews = (req, res) => {

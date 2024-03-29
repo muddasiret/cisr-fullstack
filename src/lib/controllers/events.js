@@ -1,9 +1,24 @@
 const Events = require("../models/events");
+const slugify = require("slugify");
 
 exports.getEvents = (req, res) => {
   Events.findAll().then((allEvents) => {
     res.json({ allEvents });
   });
+};
+
+exports.getSingleEvent = async (req, res) => {
+  try {
+    const { slug } = req.params;
+    const content = await Events.findOne({ where: { slug } });
+    if (!content) {
+      return res.status(404).json({ message: "Content not found" });
+    }
+    res.json(content);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
 };
 
 exports.postEvents = (req, res) => {
@@ -13,6 +28,7 @@ exports.postEvents = (req, res) => {
   const location = req.body.location;
   const description = req.body.description;
   const image = req.body.image;
+  const slug = slugify(title, { lower: true });
   Events.create({
     title,
     date,
@@ -20,11 +36,21 @@ exports.postEvents = (req, res) => {
     location,
     image,
     description,
-  }).then((updatedEvents) => {
-    Events.findAll().then((allEvents) => {
-      res.json({ allEvents, updatedEvents });
+    slug,
+  })
+    .then((updatedEvents) => {
+      Events.findAll()
+        .then((allEvents) => {
+          res.json({ allEvents, updatedEvents });
+        })
+        .catch((err) => {
+          console.log(err);
+          res.status(500).send("Server Error");
+        });
+    })
+    .catch((err) => {
+      res.status(500).json(err);
     });
-  });
 };
 
 exports.editEvents = (req, res) => {

@@ -3,10 +3,10 @@ import axiosInstance from "../../utils/axiosInterceptor";
 import { Avatar, Button, Image, List, Modal, Typography } from "antd";
 const { Title } = Typography;
 
-const NewsForm = lazy(() => import("./NewsForm"));
+const PaperForm = lazy(() => import("./PaperForm"));
 
-const News = () => {
-  const [news, setNews] = useState(null);
+const Paper = () => {
+  const [paper, setPaper] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -25,16 +25,16 @@ const News = () => {
     setIsModalOpen(false);
   };
 
-  function showDeleteModal(news) {
-    setIsDeleteModalOpen(news);
+  function showDeleteModal(paper) {
+    setIsDeleteModalOpen(paper);
   }
 
-  function deleteNews() {
+  function deletePaper() {
     setIsDeleting(true);
     axiosInstance
-      .post("/api/news-delete", isDeleteModalOpen)
+      .post("/api/paper-delete", isDeleteModalOpen)
       .then((response) => {
-        setNews(response.data.allNews);
+        setPaper(response.data.allPaper);
         setIsDeleteModalOpen(false);
       })
       .catch((error) => {
@@ -42,11 +42,11 @@ const News = () => {
       });
   }
 
-  function fetchNews() {
+  function fetchPaper() {
     axiosInstance
-      .get("/api/news")
+      .get("/api/paper")
       .then((response) => {
-        setNews(response.data.allNews);
+        setPaper(response.data.allPaper);
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -54,7 +54,7 @@ const News = () => {
   }
 
   useEffect(() => {
-    fetchNews();
+    fetchPaper();
   }, []);
 
   return (
@@ -63,14 +63,14 @@ const News = () => {
         <Modal
           title={"Are you sure you want to delete?"}
           open={!!isDeleteModalOpen}
-          onOk={deleteNews}
+          onOk={deletePaper}
           onCancel={() => setIsDeleteModalOpen(false)}
           okText={"Confirm"}
           okButtonProps={{
             loading: isUpdating,
           }}
         >
-          Confirm delete of news "
+          Confirm delete of paper "
           <i>
             <b>{isDeleteModalOpen.title}</b>
           </i>
@@ -81,7 +81,7 @@ const News = () => {
         <Modal
           width={600}
           style={{ height: "90vh" }}
-          title="Edit News"
+          title="Edit Paper"
           open={isModalOpen}
           onOk={handleOk}
           onCancel={handleCancel}
@@ -94,13 +94,13 @@ const News = () => {
         >
           <div className=" max-h-[70vh] overflow-y-auto">
             <Suspense fallback={<div>Loading...</div>}>
-              <NewsForm
+              <PaperForm
                 defaultValues={formValues}
-                setNews={setNews}
+                setPaper={setPaper}
                 handleCancel={handleCancel}
                 setIsUpdating={setIsUpdating}
                 isUpdating={isUpdating}
-                newsLength={news.length}
+                paperLength={paper.length}
               />
             </Suspense>
           </div>
@@ -109,14 +109,14 @@ const News = () => {
       <div>
         <div className="flex items-center justify-between mb-5">
           <Title className="m-0" level={3}>
-            News
+            Paper
           </Title>
           <Button onClick={() => showModal({})} type="primary">
-            Add News
+            Add Paper
           </Button>
         </div>
         <List>
-          {news?.map((item) => {
+          {paper?.map((item) => {
             return (
               <List.Item
                 className="bg-[#d9d9d957] !pr-3 !pl-2 rounded-lg mb-3"
@@ -126,12 +126,12 @@ const News = () => {
                   avatar={
                     <Image className=" rounded" width={60} src={item.image} />
                   }
-                  title={<a href="https://ant.design">{item.title}</a>}
-                  description={
-                    <div
-                      dangerouslySetInnerHTML={{ __html: item.description }}
-                    />
+                  title={
+                    <a target="_blank" href={item.pdf}>
+                      {item.title}
+                    </a>
                   }
+                  description={item.author}
                 />
                 <div className="flex">
                   <Button
@@ -159,4 +159,4 @@ const News = () => {
   );
 };
 
-export default News;
+export default Paper;

@@ -4,6 +4,10 @@ export const routes = [
     path: "/",
   },
   {
+    title: "Global",
+    path: "/global",
+  },
+  {
     title: "News",
     path: "/news",
   },
@@ -16,12 +20,8 @@ export const routes = [
     path: "/about",
   },
   {
-    title: "Prog - Academic",
-    path: "/academic",
-  },
-  {
-    title: "Prog - Semi Academic",
-    path: "/semi-academic",
+    title: "Programmes",
+    path: "/programmes",
   },
   {
     title: "Papers",

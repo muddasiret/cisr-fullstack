@@ -48,7 +48,7 @@ const AppLayout = ({ children }) => {
       >
         <Content
           style={{
-            margin: "24px 16px 0",
+            margin: "24px 25px 0 16px",
             overflow: "initial",
             minHeight: "100vh",
           }}

@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import { Button, Form, Input, Upload, message } from "antd";
+import { Button, Form, Input } from "antd";
 import axiosInstance from "../../utils/axiosInterceptor";
 import FileUpload from "../../components/FileUpload";
-import QuillEditor from "../../components/QuillEditor";
-const { TextArea } = Input;
 
 const normFile = (e) => {
   if (Array.isArray(e)) {
@@ -12,17 +10,17 @@ const normFile = (e) => {
   return e?.fileList;
 };
 
-const EventsForm = ({
+const PaperForm = ({
   defaultValues = {},
-  setEvents,
+  setPaper,
   handleCancel,
   setIsUpdating,
   isUpdating,
-  eventsLength = 0,
+  paperLength = 0,
 }) => {
   const [editedValues, setEditedValues] = useState(defaultValues);
   const [itemId, setItemId] = useState(
-    defaultValues.id ? defaultValues.id : eventsLength + 1
+    defaultValues.id ? defaultValues.id : paperLength + 1
   );
 
   const [form] = Form.useForm();
@@ -30,26 +28,20 @@ const EventsForm = ({
   async function submitForm() {
     setIsUpdating(true);
     let res;
-    try {
-      if (Object.keys(defaultValues).length !== 0) {
-        res = await axiosInstance.put("/api/events-update", {
-          ...defaultValues,
-          ...editedValues,
-        });
-      } else {
-        res = await axiosInstance.post("/api/events-update", {
-          ...defaultValues,
-          ...editedValues,
-        });
-      }
-      if (res?.data) {
-        setEvents(res.data.allEvents);
-        handleCancel();
-      }
-    } catch (err) {
-      console.log(err);
-      message.error("Error creating event! Enter unique title.");
-      setIsUpdating(false);
+    if (Object.keys(defaultValues).length !== 0) {
+      res = await axiosInstance.put("/api/paper-update", {
+        ...defaultValues,
+        ...editedValues,
+      });
+    } else {
+      res = await axiosInstance.post("/api/paper-update", {
+        ...defaultValues,
+        ...editedValues,
+      });
+    }
+    if (res?.data) {
+      setPaper(res.data.allPaper);
+      handleCancel();
     }
   }
 
@@ -57,11 +49,6 @@ const EventsForm = ({
     setEditedValues({ ...editedValues, [type]: url });
     form.setFieldValue(type, url);
   };
-
-  function onDescChange(content) {
-    setEditedValues({ ...editedValues, description: content });
-    form.setFieldValue("description", content);
-  }
 
   return (
     <>
@@ -102,20 +89,8 @@ const EventsForm = ({
             >
               <Input />
             </Form.Item>
-            <Form.Item label="Location" name={"location"}>
+            <Form.Item label="Author" name={"author"}>
               <Input />
-            </Form.Item>
-            <Form.Item label="Date" name="date">
-              <Input />
-            </Form.Item>
-            <Form.Item label="Time" name="time">
-              <Input />
-            </Form.Item>
-            <Form.Item label="Description" name="description">
-              <QuillEditor
-                handleChange={onDescChange}
-                value={editedValues.description}
-              />
             </Form.Item>
             <Form.Item
               label="Image"
@@ -125,15 +100,31 @@ const EventsForm = ({
             >
               <FileUpload
                 name="image"
-                prefix="events"
-                length={eventsLength}
+                prefix="paper"
+                length={paperLength}
                 itemId={itemId}
                 afterUpload={afterFileUpload}
                 fileUrl={editedValues.image}
               />
             </Form.Item>
+            <Form.Item
+              label="Pdf"
+              valuePropName="fileList"
+              getValueFromEvent={normFile}
+              name={"pdf_link"}
+            >
+              <FileUpload
+                name="pdf_link"
+                prefix="paper"
+                length={paperLength}
+                itemId={itemId}
+                afterUpload={afterFileUpload}
+                fileUrl={editedValues.pdf_link}
+                accept=".pdf"
+              />
+            </Form.Item>
           </div>
-          <div className="sticky bottom-0 right-0 w-full flex justify-end bg-white">
+          <div className="sticky bottom-0 pb-2 right-0 w-full flex justify-end bg-white">
             <Button
               htmlType="submit"
               type="primary"
@@ -149,4 +140,4 @@ const EventsForm = ({
     </>
   );
 };
-export default React.memo(EventsForm);
+export default React.memo(PaperForm);

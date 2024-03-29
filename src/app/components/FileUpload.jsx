@@ -6,7 +6,6 @@ import useFileUpload from "../hooks/useFileUpload";
 const FileUpload = ({
   prefix = "news",
   name,
-  setImageFile = () => {},
   itemId,
   afterUpload = () => {},
   fileUrl = null,
@@ -38,7 +37,6 @@ const FileUpload = ({
 
   const handleChange = (info) => {
     setFile(info.file);
-    setImageFile(info.file);
 
     getBase64(info.file, (url) => {
       setLoading(false);
@@ -66,7 +64,6 @@ const FileUpload = ({
     },
     beforeUpload: (file) => {
       setFile(file);
-      setImageFile(file);
       return false;
     },
     file,
