@@ -100,7 +100,7 @@ const News = () => {
                 handleCancel={handleCancel}
                 setIsUpdating={setIsUpdating}
                 isUpdating={isUpdating}
-                newsLength={news.length}
+                newsLength={news?.length}
               />
             </Suspense>
           </div>

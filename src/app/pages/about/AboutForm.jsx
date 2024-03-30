@@ -81,6 +81,9 @@ const AboutForm = ({
             <Form.Item label="Subtitle" name={"subtitle"}>
               <Input />
             </Form.Item>
+            <Form.Item label="Youtube" name="youtube_link">
+              <Input />
+            </Form.Item>
             <Form.Item label="body" name="body">
               <QuillEditor
                 handleChange={onDescChange}

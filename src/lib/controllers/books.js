@@ -26,6 +26,7 @@ exports.postBooks = (req, res) => {
   const description = req.body.description;
   const image = req.body.image;
   const author = req.body.author;
+  const youtube_link = req.body.youtube_link;
   const slug = slugify(title, { lower: true });
   Books.create({
     title,
@@ -33,6 +34,7 @@ exports.postBooks = (req, res) => {
     description,
     author,
     slug,
+    youtube_link,
   })
     .then((updatedBooks) => {
       Books.findAll()
@@ -55,12 +57,14 @@ exports.editBooks = (req, res) => {
   const description = req.body.description;
   const image = req.body.image;
   const author = req.body.author;
+  const youtube_link = req.body.youtube_link;
   Books.findByPk(id)
     .then((books) => {
       books.title = title;
       books.description = description;
       books.image = image;
       books.author = author;
+      books.youtube_link = youtube_link;
       return books.save();
     })
     .then((updatedBooks) => {

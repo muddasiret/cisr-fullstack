@@ -23,10 +23,12 @@ exports.postAbout = (req, res) => {
   const title = req.body.title;
   const subtitle = req.body.subtitle;
   const body = req.body.body;
+  const youtube_link = req.body.youtube_link;
   About.create({
     title,
     subtitle,
     body,
+    youtube_link,
   }).then((updatedAbout) => {
     About.findAll().then((about) => {
       res.json({ about, updatedAbout });
@@ -65,11 +67,13 @@ exports.editAbout = (req, res) => {
   const title = req.body.title;
   const subtitle = req.body.subtitle;
   const body = req.body.body;
+  const youtube_link = req.body.youtube_link;
   About.findByPk(id)
     .then((about) => {
       about.title = title;
       about.subtitle = subtitle;
       about.body = body;
+      about.youtube_link = youtube_link;
       return about.save();
     })
     .then(() => {

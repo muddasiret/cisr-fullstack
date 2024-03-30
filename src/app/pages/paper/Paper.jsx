@@ -100,7 +100,7 @@ const Paper = () => {
                 handleCancel={handleCancel}
                 setIsUpdating={setIsUpdating}
                 isUpdating={isUpdating}
-                paperLength={paper.length}
+                paperLength={paper?.length}
               />
             </Suspense>
           </div>

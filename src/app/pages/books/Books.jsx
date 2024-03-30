@@ -100,7 +100,7 @@ const Books = () => {
                 handleCancel={handleCancel}
                 setIsUpdating={setIsUpdating}
                 isUpdating={isUpdating}
-                booksLength={books.length}
+                booksLength={books?.length}
               />
             </Suspense>
           </div>

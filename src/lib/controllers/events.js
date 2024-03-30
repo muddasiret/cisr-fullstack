@@ -28,6 +28,7 @@ exports.postEvents = (req, res) => {
   const location = req.body.location;
   const description = req.body.description;
   const image = req.body.image;
+  const youtube_link = req.body.youtube_link;
   const slug = slugify(title, { lower: true });
   Events.create({
     title,
@@ -37,6 +38,7 @@ exports.postEvents = (req, res) => {
     image,
     description,
     slug,
+    youtube_link,
   })
     .then((updatedEvents) => {
       Events.findAll()
@@ -61,6 +63,7 @@ exports.editEvents = (req, res) => {
   const location = req.body.location;
   const description = req.body.description;
   const image = req.body.image;
+  const youtube_link = req.body.youtube_link;
   Events.findByPk(id)
     .then((events) => {
       events.title = title;
@@ -69,6 +72,7 @@ exports.editEvents = (req, res) => {
       events.location = location;
       events.description = description;
       events.image = image;
+      events.youtube_link = youtube_link;
       return events.save();
     })
     .then((updatedEvents) => {

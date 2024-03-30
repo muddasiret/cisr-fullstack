@@ -1,12 +1,12 @@
 import { Suspense, lazy, useEffect, useState } from "react";
 import axiosInstance from "../../utils/axiosInterceptor";
-import { Avatar, Button, Image, List, Modal, Typography } from "antd";
+import { Button, Image, List, Modal, Typography } from "antd";
 const { Title } = Typography;
 
 const GalleryForm = lazy(() => import("./GallleryForm"));
 
 const Gallery = () => {
-  const [Gallery, setGallery] = useState(null);
+  const [gallery, setGallery] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -25,8 +25,8 @@ const Gallery = () => {
     setIsModalOpen(false);
   };
 
-  function showDeleteModal(Gallery) {
-    setIsDeleteModalOpen(Gallery);
+  function showDeleteModal(gallery) {
+    setIsDeleteModalOpen(gallery);
   }
 
   function deleteGallery() {
@@ -98,7 +98,7 @@ const Gallery = () => {
                 handleCancel={handleCancel}
                 setIsUpdating={setIsUpdating}
                 isUpdating={isUpdating}
-                GalleryLength={Gallery.length}
+                galleryLength={gallery?.length}
               />
             </Suspense>
           </div>
@@ -114,7 +114,7 @@ const Gallery = () => {
           </Button>
         </div>
         <List className="mt-4">
-          {Gallery?.map((item) => {
+          {gallery?.map((item) => {
             let subtitleFormatted =
               item?.subtitle?.length > 60
                 ? item?.subtitle?.slice(0, 60) + "...."

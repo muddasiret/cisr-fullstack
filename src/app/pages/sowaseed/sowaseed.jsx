@@ -100,7 +100,7 @@ const Sowaseed = () => {
                 handleCancel={handleCancel}
                 setIsUpdating={setIsUpdating}
                 isUpdating={isUpdating}
-                sowaseedLength={sowaseed.length}
+                sowaseedLength={sowaseed?.length}
               />
             </Suspense>
           </div>

@@ -8,11 +8,11 @@ exports.getSowaseed = (req, res) => {
 };
 
 exports.postSowaseed = (req, res) => {
-  const name = req.body.title;
+  const name = req.body.name;
   const description = req.body.description;
   const image = req.body.image;
   const day = req.body.day;
-  const slug = slugify(title, { lower: true });
+  const slug = slugify(name, { lower: true });
   Sowaseed.create({
     name,
     image,

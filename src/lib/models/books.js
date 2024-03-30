@@ -18,12 +18,21 @@ const Books = sequelize.define("books", {
     allowNull: true,
   },
   description: {
-    type: Sequelize.STRING,
+    type: Sequelize.TEXT,
     allowNull: true,
   },
   author: {
     type: Sequelize.STRING,
     allowNull: true,
+  },
+  youtube_link: {
+    type: Sequelize.STRING,
+    allowNull: true,
+  },
+  slug: {
+    type: Sequelize.STRING,
+    allowNull: true,
+    unique: true,
   },
 });
 

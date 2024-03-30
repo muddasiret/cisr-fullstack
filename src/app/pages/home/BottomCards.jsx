@@ -98,7 +98,7 @@ const Bottomcards = () => {
                 handleCancel={handleCancel}
                 setIsUpdating={setIsUpdating}
                 isUpdating={isUpdating}
-                BottomcardsLength={Bottomcards.length}
+                BottomcardsLength={Bottomcards?.length}
               />
             </Suspense>
           </div>

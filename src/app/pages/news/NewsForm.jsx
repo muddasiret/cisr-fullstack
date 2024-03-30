@@ -101,6 +101,9 @@ const NewsForm = ({
             <Form.Item label="Section" name="section">
               <Input />
             </Form.Item>
+            <Form.Item label="Youtube" name="youtube_link">
+              <Input />
+            </Form.Item>
             <Form.Item label="Description" name="description">
               <QuillEditor
                 handleChange={onDescChange}

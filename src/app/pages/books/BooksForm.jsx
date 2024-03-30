@@ -98,6 +98,9 @@ const BooksForm = ({
             <Form.Item label="Author" name={"author"}>
               <Input />
             </Form.Item>
+            <Form.Item label="Youtube" name="youtube_link">
+              <Input />
+            </Form.Item>
             <Form.Item label="Description" name="description">
               <QuillEditor
                 handleChange={onDescChange}

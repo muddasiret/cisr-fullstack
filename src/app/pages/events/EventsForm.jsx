@@ -111,6 +111,9 @@ const EventsForm = ({
             <Form.Item label="Time" name="time">
               <Input />
             </Form.Item>
+            <Form.Item label="Youtube" name="youtube_link">
+              <Input />
+            </Form.Item>
             <Form.Item label="Description" name="description">
               <QuillEditor
                 handleChange={onDescChange}

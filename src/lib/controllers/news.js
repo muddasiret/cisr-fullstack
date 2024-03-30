@@ -29,6 +29,7 @@ exports.postNews = (req, res) => {
   const pdf_text = req.body.pdf_text;
   const pdf_link = req.body.pdf_link;
   const image = req.body.image;
+  const youtube_link = req.body.youtube_link;
   const section = req.body.section;
   const slug = slugify(title, { lower: true });
   News.create({
@@ -40,6 +41,7 @@ exports.postNews = (req, res) => {
     pdf_link,
     image,
     section,
+    youtube_link,
     slug,
   })
     .then((updatedNews) => {
@@ -62,6 +64,7 @@ exports.editNews = (req, res) => {
   const pdf_link = req.body.pdf_link;
   const image = req.body.image;
   const section = req.body.section;
+  const youtube_link = req.body.youtube_link;
   News.findByPk(id)
     .then((news) => {
       news.title = title;
@@ -72,7 +75,7 @@ exports.editNews = (req, res) => {
       news.pdf_link = pdf_link;
       news.image = image;
       news.section = section;
-      console.log(news);
+      news.youtube_link = youtube_link;
       return news.save();
     })
     .then((updatedNews) => {

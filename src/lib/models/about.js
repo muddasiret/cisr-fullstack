@@ -17,6 +17,10 @@ const About = sequelize.define("about", {
     type: Sequelize.STRING,
     allowNull: true,
   },
+  youtube_link: {
+    type: Sequelize.STRING,
+    allowNull: true,
+  },
   body: {
     type: Sequelize.TEXT,
     allowNull: true,
