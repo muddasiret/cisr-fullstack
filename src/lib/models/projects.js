@@ -21,6 +21,10 @@ const Project = sequelize.define("project", {
     type: Sequelize.STRING,
     allowNull: true,
   },
+  slug: {
+    type: Sequelize.STRING,
+    allowNull: true,
+  },
   body: {
     type: Sequelize.TEXT,
     allowNull: true,

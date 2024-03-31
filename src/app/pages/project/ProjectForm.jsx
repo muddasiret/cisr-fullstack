@@ -161,7 +161,7 @@ const ProjectForm = ({
                 history.push("/team");
               }}
             >
-              Add Team members
+              Add New Team members
             </Button>
           </div>
           <div className="sticky bottom-0 pb-2 right-0 w-full flex justify-end bg-white">
