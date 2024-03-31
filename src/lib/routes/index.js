@@ -7,10 +7,11 @@ const bottomcardsController = require("../controllers/bottomcards");
 const homeController = require("../controllers/home");
 const aboutController = require("../controllers/about");
 const paperController = require("../controllers/paper");
-const profileController = require("../controllers/profiles");
 const projectController = require("../controllers/projects");
 const booksController = require("../controllers/books");
 const sowaseedController = require("../controllers/sowaseed");
+const teamController = require("../controllers/team");
+const facultyController = require("../controllers/faculty");
 
 const router = express.Router();
 
@@ -20,14 +21,6 @@ router.get("/news/:slug", newsController.getSingleNews);
 router.post("/news-update", newsController.postNews);
 router.put("/news-update", newsController.editNews);
 router.post("/news-delete", newsController.deleteNews);
-
-// Profiles
-router.get("/profiles", profileController.getProfiles);
-router.get("/profiles/:slug", profileController.getSingleProfiles);
-router.post("/profiles-update", profileController.postProfiles);
-router.put("/profiles-update", profileController.editProfiles);
-router.post("/profiles-delete", profileController.deleteProfiles);
-
 // Events
 router.get("/events", eventsController.getEvents);
 router.get("/events/:slug", eventsController.getSingleEvent);
@@ -82,6 +75,20 @@ router.get("/books/:slug", booksController.getSingleBook);
 router.post("/books-update", booksController.postBooks);
 router.put("/books-update", booksController.editBooks);
 router.post("/books-delete", booksController.deleteBooks);
+
+// TEAM
+router.get("/team", teamController.getTeam);
+router.get("/team/:slug", teamController.getSingleTeam);
+router.post("/team-update", teamController.postTeam);
+router.put("/team-update", teamController.editTeam);
+router.post("/team-delete", teamController.deleteTeam);
+
+// Faculty
+router.get("/faculty", facultyController.getFaculty);
+router.get("/faculty/:slug", facultyController.getSingleFaculty);
+router.post("/faculty-update", facultyController.postFaculty);
+router.put("/faculty-update", facultyController.editFaculty);
+router.post("/faculty-delete", facultyController.deleteFaculty);
 
 // Projects
 router.get("/sowaseed", sowaseedController.getSowaseed);

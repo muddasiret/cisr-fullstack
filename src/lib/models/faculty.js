@@ -2,7 +2,7 @@ const { Sequelize } = require("sequelize");
 
 const sequelize = require("./index");
 
-const Profiles = sequelize.define("profiles", {
+const Faculty = sequelize.define("faculty", {
   id: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
@@ -32,4 +32,4 @@ const Profiles = sequelize.define("profiles", {
   },
 });
 
-module.exports = Profiles;
+module.exports = Faculty;

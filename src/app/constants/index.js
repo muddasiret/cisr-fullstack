@@ -32,8 +32,12 @@ export const routes = [
     path: "/projects",
   },
   {
-    title: "Profiles",
-    path: "/profiles",
+    title: "Team",
+    path: "/team",
+  },
+  {
+    title: "Faculty",
+    path: "/faculties",
   },
   {
     title: "Tea over books",

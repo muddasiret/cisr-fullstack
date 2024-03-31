@@ -23,14 +23,18 @@ exports.getSingleProjects = async (req, res) => {
 
 exports.postProjects = (req, res) => {
   const title = req.body.title;
-  const description = req.body.description;
+  const short_description = req.body.description;
+  const body = req.body.body;
   const image = req.body.image;
+  const team = req.body.team;
   const slug = slugify(title, { lower: true });
   Projects.create({
     title,
-    description,
+    short_description,
+    body,
     image,
     slug,
+    team,
   })
     .then((updatedProjects) => {
       Projects.findAll().then((allProjects) => {
@@ -45,14 +49,17 @@ exports.postProjects = (req, res) => {
 exports.editProjects = (req, res) => {
   const id = req.body.id;
   const title = req.body.title;
-  const description = req.body.description;
+  const short_description = req.body.short_description;
+  const body = req.body.body;
   const image = req.body.image;
-  const section = req.body.section;
+  const team = req.body.team;
   Projects.findByPk(id)
     .then((projects) => {
       projects.title = title;
-      projects.description = description;
+      projects.short_description = short_description;
+      projects.body = body;
       projects.image = image;
+      projects.team = team;
       return projects.save();
     })
     .then((updatedProjects) => {

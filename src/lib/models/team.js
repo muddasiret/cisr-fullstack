@@ -2,33 +2,34 @@ const { Sequelize } = require("sequelize");
 
 const sequelize = require("./index");
 
-const Project = sequelize.define("project", {
+const Team = sequelize.define("team", {
   id: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
     allowNull: false,
     primaryKey: true,
   },
+  name: {
+    type: Sequelize.STRING,
+    allowNull: true,
+  },
+  designation: {
+    type: Sequelize.STRING,
+    allowNull: true,
+  },
+  description: {
+    type: Sequelize.TEXT,
+    allowNull: true,
+  },
   image: {
     type: Sequelize.STRING,
     allowNull: true,
   },
-  title: {
+  slug: {
     type: Sequelize.STRING,
-    allowNull: true,
-  },
-  short_description: {
-    type: Sequelize.STRING,
-    allowNull: true,
-  },
-  body: {
-    type: Sequelize.TEXT,
-    allowNull: true,
-  },
-  team: {
-    type: Sequelize.ARRAY(Sequelize.JSONB),
-    allowNull: true,
+    allowNull: false,
+    unique: true,
   },
 });
 
-module.exports = Project;
+module.exports = Team;
