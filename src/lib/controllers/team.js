@@ -9,8 +9,8 @@ exports.getTeam = (req, res) => {
 
 exports.getSingleTeam = async (req, res) => {
   try {
-    const { slug } = req.params;
-    const content = await Team.findOne({ where: { slug } });
+    const { id } = req.params;
+    const content = await Team.findOne({ where: { id } });
     if (!content) {
       return res.status(404).json({ message: "Content not found" });
     }
@@ -26,13 +26,11 @@ exports.postTeam = (req, res) => {
   const description = req.body.description;
   const designation = req.body.designation;
   const image = req.body.image;
-  const slug = slugify(name, { lower: true });
   Team.create({
     name,
     description,
     designation,
     image,
-    slug,
   })
     .then((updatedTeam) => {
       Team.findAll().then((allTeam) => {

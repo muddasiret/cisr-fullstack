@@ -25,11 +25,6 @@ const Faculty = sequelize.define("faculty", {
     type: Sequelize.STRING,
     allowNull: true,
   },
-  slug: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    unique: true,
-  },
 });
 
 module.exports = Faculty;

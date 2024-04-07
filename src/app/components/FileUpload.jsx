@@ -36,8 +36,12 @@ const FileUpload = ({
   );
 
   const handleChange = (info) => {
+    const { file } = info;
+    if (file.size / 1024 / 1024 > 2) {
+      message.error("File size exceeds the limit of 2MB. Please upload a smaller size file");
+      return;
+    }
     setFile(info.file);
-
     getBase64(info.file, (url) => {
       setLoading(false);
       setFileURL(url);

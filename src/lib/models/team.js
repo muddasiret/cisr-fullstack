@@ -25,11 +25,6 @@ const Team = sequelize.define("team", {
     type: Sequelize.STRING,
     allowNull: true,
   },
-  slug: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    unique: true,
-  },
 });
 
 module.exports = Team;

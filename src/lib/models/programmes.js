@@ -2,7 +2,7 @@ const { Sequelize } = require("sequelize");
 
 const sequelize = require("./index");
 
-const Programs = sequelize.define("programs", {
+const Programmes = sequelize.define("programmes", {
   id: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
@@ -13,16 +13,24 @@ const Programs = sequelize.define("programs", {
     type: Sequelize.STRING,
     allowNull: true,
   },
+  type: {
+    type: Sequelize.STRING,
+    allowNull: true,
+  },
   image: {
     type: Sequelize.STRING,
     allowNull: true,
   },
-  youtube: {
+  slug: {
+    type: Sequelize.STRING,
+    allowNull: true,
+  },
+  youtube_link: {
     type: Sequelize.STRING,
     allowNull: true,
   },
   body: {
-    type: Sequelize.STRING,
+    type: Sequelize.TEXT,
     allowNull: true,
   },
   syllabus: {
@@ -33,6 +41,10 @@ const Programs = sequelize.define("programs", {
     type: Sequelize.ARRAY(Sequelize.JSONB),
     allowNull: true,
   },
+  faculty: {
+    type: Sequelize.ARRAY(Sequelize.JSONB),
+    allowNull: true,
+  }
 });
 
-module.exports = Programs;
+module.exports = Programmes;

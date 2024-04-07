@@ -12,6 +12,7 @@ const booksController = require("../controllers/books");
 const sowaseedController = require("../controllers/sowaseed");
 const teamController = require("../controllers/team");
 const facultyController = require("../controllers/faculty");
+const programmesController = require("../controllers/programmes");
 
 const router = express.Router();
 
@@ -95,5 +96,11 @@ router.get("/sowaseed", sowaseedController.getSowaseed);
 router.post("/sowaseed-update", sowaseedController.postSowaseed);
 router.put("/sowaseed-update", sowaseedController.editSowaseed);
 router.post("/sowaseed-delete", sowaseedController.deleteSowaseed);
+
+// Projects
+router.get("/programmes", programmesController.getProgrammes);
+router.post("/programmes-update", programmesController.postProgrammes);
+router.put("/programmes-update", programmesController.editProgrammes);
+router.post("/programmes-delete", programmesController.deleteProgrammes);
 
 module.exports = router;

@@ -9,8 +9,8 @@ exports.getFaculty = (req, res) => {
 
 exports.getSingleFaculty = async (req, res) => {
   try {
-    const { slug } = req.params;
-    const content = await Faculty.findOne({ where: { slug } });
+    const { id } = req.params;
+    const content = await Faculty.findOne({ where: { id } });
     if (!content) {
       return res.status(404).json({ message: "Content not found" });
     }
@@ -26,13 +26,11 @@ exports.postFaculty = (req, res) => {
   const description = req.body.description;
   const designation = req.body.designation;
   const image = req.body.image;
-  const slug = slugify(name, { lower: true });
   Faculty.create({
     name,
     description,
     designation,
     image,
-    slug,
   })
     .then((updatedFaculty) => {
       Faculty.findAll().then((allFaculty) => {

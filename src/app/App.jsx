@@ -14,6 +14,7 @@ const Sowaseed = lazy(() => import("./pages/sowaseed/sowaseed"));
 const Team = lazy(() => import("./pages/team/Team"));
 const Faculty = lazy(() => import("./pages/faculty/Faculty"));
 const Project = lazy(() => import("./pages/project/Project"));
+const Programmes = lazy(() => import("./pages/programmes/Programmes"));
 
 const NotFound = () => <div>Not Found</div>; // Define a NotFound component
 
@@ -49,6 +50,7 @@ function App() {
                 <Route path="/team" component={Team} />
                 <Route path="/faculties" component={Faculty} />
                 <Route path="/projects" component={Project} />
+                <Route path="/programmes" component={Programmes} />
               </>
             )}
           </Suspense>

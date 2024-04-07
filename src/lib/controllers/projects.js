@@ -23,7 +23,7 @@ exports.getSingleProjects = async (req, res) => {
 
 exports.postProjects = (req, res) => {
   const title = req.body.title;
-  const short_description = req.body.description;
+  const short_description = req.body.short_description;
   const body = req.body.body;
   const image = req.body.image;
   const team = req.body.team;
